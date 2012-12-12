@@ -60,7 +60,7 @@ addGlobalStyle('html{background: url("http://image-upload.de/image/2rhlyf/86c3dc
 //THE WORD REPLACEMENT CODE BELOW IS NOT MINE, IT BELONGS TO JOE SIMMONS
 
 
-/*var words = {
+var words = {
 // Syntax: 'Search word' : 'Replace word',
 "Points" : "Points",
 "Now Playing" : "Now Playing",
@@ -76,18 +76,18 @@ return this.replace(/([\[\]\^\&\$\.\(\)\?\/\\\+\{\}\|])/g, "\\$1");
 
 function isOkTag(tag) {
 return (",pre,blockquote,code,input,button,textarea".indexOf(","+tag) == -1);
-}*/
+}
 
-//var regexs=new Array(),
-//	replacements=new Array();
-//for(var word in words) {
-//if(word != "") {
-//regexs.push(new RegExp("\\b"+word.prepareRegex().replace(/\*/g,'[^ ]*')+"\\b", 'gi'));
-//replacements.push(words[word]);
-//}
-//}
+var regexs=new Array(),
+	replacements=new Array();
+for(var word in words) {
+if(word != "") {
+regexs.push(new RegExp("\\b"+word.prepareRegex().replace(/\*/g,'[^ ]*')+"\\b", 'gi'));
+replacements.push(words[word]);
+}
+}
 
-/*var texts = document.evaluate(".//text()[normalize-space(.)!='']",document.body,null,6,null), text="";
+var texts = document.evaluate(".//text()[normalize-space(.)!='']",document.body,null,6,null), text="";
 for(var i=0,l=texts.snapshotLength; (this_text=texts.snapshotItem(i)); i++) {
 	if(isOkTag(this_text.parentNode.tagName.toLowerCase()) && (text=this_text.textContent)) {
 	for(var x=0,l=regexs.length; x<l; x++) {
@@ -95,7 +95,7 @@ for(var i=0,l=texts.snapshotLength; (this_text=texts.snapshotItem(i)); i++) {
 	this_text.textContent = text;
 	}
 	}
-}*/
+}
 
 //PLUGBOT
 
