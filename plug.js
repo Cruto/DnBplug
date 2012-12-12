@@ -114,8 +114,61 @@ for(var i=0,l=texts.snapshotLength; (this_text=texts.snapshotItem(i)); i++) {
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+ * TERMS OF REPRODUCTION USE
+ *
+ * 1. Provide a link back to the original repository (this repository), as
+ * 		in, https://github.com/ConnerGDavis/Plugbot, that is well-visible
+ * 		wherever the source is being reproduced.  For example, should you 
+ * 		display it on a website, you should provide a link above/below that
+ *		which the users use, titled something such as "ORIGINAL AUTHOR".  
+ *
+ * 2. Retain these three comments:  the GNU GPL license statement, this comment,
+ * 		and that below it, that details the author and purpose.
+ */
+ 
+/**
+ * NOTE:  This is all procedural as hell because prototypes and any 
+ * 			OOP techniques in Javascript are stupid and confusing.
+ * 
+ * @author 	Conner Davis ([VIP] ?Logïç®) 
+ * 			Harrison Schneidman ([VIDJ] EX?)
+ */
 
+/**
+ * Whether the user has currently enabled auto-woot. 
+ */
+var autowoot = false;
+/**
+ * Whether the user has currently enabled auto-queueing. 
+ */
+var autoqueue = false;
+/**
+ * Whether or not the user has enabled hiding this video. 
+ */
+var hideVideo = false;
+/**
+ * Whether or not the user has enabled the userlist. 
+ */
+var userList = false;
+/**
+ * Strings that trigger strobe mode
+ */
+var strobeOn = /on/;
+var strobeOff = /off/;
+/**
+ * Strobe status
+ */
+var strobeState = false;
+/**
+ * Whenever a user chooses to apply custom username FX to a
+ * user, their username and chosen colour and saved here. 
+ */
+var customUsernames = new Array();
 
+// TODO:  DJ battle-related.
+var points = 0;
+var highScore = 0;
 
 /**
  * Initialise all of the Plug.dj API listeners which we use
@@ -424,90 +477,7 @@ function populateUserlist()
  *					0	: 'undecided' (hasn't voted yet)
  * 					1	: WOOT!
  */
-function appendUser(user) 
-{
-	var username 	= user.username;
-	var vote 		= user.vote;
-	
-	/*
-	 * Some variables that we'll either be setting as true/false
-	 * (some conditionals that do major changes to their look in the userlist)
-	 * or setting a value to.
-	 */
-	var colour;
-	var currentDj = false;
-	var moderator = user.moderator;
-	if (API.getSuperUsers() != null) 	var su = user.superuser;
-	if (API.getHost() != null) 			var host = user.owner;
-	var img;
 
-	/*
-	 * Based on their vote, apply the colour coding.
-	 */
-	switch (vote) 
-	{
-		case 1:		// WOOT!
-			colour = "3FFF00";
-			points++;
-			if (moderator)
-				img = "http://i.imgur.com/T5G4f.png";
-			if (host)
-				img = "http://i.imgur.com/Lu1qo.png";
-			if (su)
-				img = "http://i.imgur.com/XA1DE.png";
-			break;
-		case 0:		// Undecided
-			colour = "FFFFFF";
-			if (moderator) 
-				img = "http://i.imgur.com/sRsU0.png";
-			if (host)
-				img = "http://i.imgur.com/6Bq5W.png";
-			if (su)
-				img = "http://i.imgur.com/veoVS.png";
-			break;
-		case -1:	// Meh
-			colour = "ED1C24";
-			if (moderator)
-				img = "http://i.imgur.com/JPA1Q.png";
-			if (host)
-				img = "http://i.imgur.com/wVLR3.png";
-			if (su)
-				img = "http://i.imgur.com/5LcI3.png";
-			break;
-	}
-
-	/*
-	 * If they're the current DJ, apply some more special
-	 * changes.
-	 */
-	if (API.getDJs().length > 0 && API.getDJs()[0].username == username) {
-		currentDj = true;
-		colour = "42A5DC";
-		if (moderator)
-			img = "http://i.imgur.com/CsK3d.png";
-	}
-
-	/*
-	 * Sometimes undecided mod star breaks.  This fixes that.
-	 */
-	if (img == undefined && (moderator || host || su)) 
-	{
-		colour = "FFFFFF";
-		img = moderator ? "http://i.imgur.com/sRsU0.png" : "http://i.imgur.com/6Bq5W.png";
-	}
-
-	/*
-	 * Apply the HTML code to the page that actually displays them
-	 * inside the userlist.
-	 */
-	$('#plugbot-userlist').append(
-		((moderator || host || su) ? '<img src="' + img + '" align="left" style="margin-left:6px" alt="Moderator" />' : '') 
-		+ '<p style="' + ((moderator || host || su) ? 'text-indent:6px !important;' : '') 
-		+ 'color:#' + colour + ';' + (currentDj ? 'font-weight:bold;font-size:15px' : '') + '"' 
-		+ (currentDj ? ('title="' + username + ' is the current DJ!"') : '') + '>' 
-		+ username + '</p>'
-	);
-}
 
 
 ///////////////////////////////////////////////////////////
