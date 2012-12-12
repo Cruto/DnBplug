@@ -12,7 +12,7 @@ function addGlobalStyle(css){
 }
 
 //
-//addGlobalStyle('#audience-canvas {background-image: ;)');
+addGlobalStyle('#audience-canvas {background-image: url("http://image-upload.de/image/x5Pb8G/78e67af2c7.png") ;}');
 //
 addGlobalStyle('#map-canvas {background-image: url("http://image-upload.de/image/x5Pb8G/78e67af2c7.png") ;}');
 //
