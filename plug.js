@@ -513,7 +513,7 @@ $("#button-vote-positive").click();
  */
 initAPIListeners();
 //populateUserlist();
-displayUI();
+//displayUI();
 initUIListeners();
 
 //autochat
