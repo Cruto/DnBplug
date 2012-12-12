@@ -511,7 +511,7 @@ $("#button-vote-positive").click();
 /*
  * Call all init-related functions to start the software up.
  */
-initAPIListeners();
+//initAPIListeners();
 //populateUserlist();
 //displayUI();
 //initUIListeners();
