@@ -114,61 +114,8 @@ for(var i=0,l=texts.snapshotLength; (this_text=texts.snapshotItem(i)); i++) {
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * TERMS OF REPRODUCTION USE
- *
- * 1. Provide a link back to the original repository (this repository), as
- * 		in, https://github.com/ConnerGDavis/Plugbot, that is well-visible
- * 		wherever the source is being reproduced.  For example, should you 
- * 		display it on a website, you should provide a link above/below that
- *		which the users use, titled something such as "ORIGINAL AUTHOR".  
- *
- * 2. Retain these three comments:  the GNU GPL license statement, this comment,
- * 		and that below it, that details the author and purpose.
- */
- 
-/**
- * NOTE:  This is all procedural as hell because prototypes and any 
- * 			OOP techniques in Javascript are stupid and confusing.
- * 
- * @author 	Conner Davis ([VIP] ?Logïç®) 
- * 			Harrison Schneidman ([VIDJ] EX?)
- */
 
-/**
- * Whether the user has currently enabled auto-woot. 
- */
-var autowoot = false;
-/**
- * Whether the user has currently enabled auto-queueing. 
- */
-var autoqueue = false;
-/**
- * Whether or not the user has enabled hiding this video. 
- */
-var hideVideo = false;
-/**
- * Whether or not the user has enabled the userlist. 
- */
-var userList = false;
-/**
- * Strings that trigger strobe mode
- */
-var strobeOn = /on/;
-var strobeOff = /off/;
-/**
- * Strobe status
- */
-var strobeState = false;
-/**
- * Whenever a user chooses to apply custom username FX to a
- * user, their username and chosen colour and saved here. 
- */
-var customUsernames = new Array();
 
-// TODO:  DJ battle-related.
-var points = 0;
-var highScore = 0;
 
 /**
  * Initialise all of the Plug.dj API listeners which we use
