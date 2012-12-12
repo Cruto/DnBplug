@@ -402,7 +402,57 @@ function djAdvanced(obj)
 		populateUserlist();
 }
 
+function appendUser(user) 
+{
+	var username 	= user.username;
+	var vote 		= user.vote;
+	
+	/*
+	 * Some variables that we'll either be setting as true/false
+	 * (some conditionals that do major changes to their look in the userlist)
+	 * or setting a value to.
+	 */
+	var colour;
+	var currentDj = false;
+	var moderator = user.moderator;
+	if (API.getSuperUsers() != null) 	var su = user.superuser;
+	if (API.getHost() != null) 			var host = user.owner;
+	var img;
 
+	/*
+	 * Based on their vote, apply the colour coding.
+	 */
+	switch (vote) 
+	{
+		case 1:		// WOOT!
+			colour = "3FFF00";
+			points++;
+			if (moderator)
+				img = "http://i.imgur.com/T5G4f.png";
+			if (host)
+				img = "http://i.imgur.com/Lu1qo.png";
+			if (su)
+				img = "http://i.imgur.com/XA1DE.png";
+			break;
+		case 0:		// Undecided
+			colour = "FFFFFF";
+			if (moderator) 
+				img = "http://i.imgur.com/sRsU0.png";
+			if (host)
+				img = "http://i.imgur.com/6Bq5W.png";
+			if (su)
+				img = "http://i.imgur.com/veoVS.png";
+			break;
+		case -1:	// Meh
+			colour = "ED1C24";
+			if (moderator)
+				img = "http://i.imgur.com/JPA1Q.png";
+			if (host)
+				img = "http://i.imgur.com/wVLR3.png";
+			if (su)
+				img = "http://i.imgur.com/5LcI3.png";
+			break;
+	}
 
 
 ///////////////////////////////////////////////////////////
