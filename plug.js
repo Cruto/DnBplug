@@ -514,7 +514,7 @@ $("#button-vote-positive").click();
 initAPIListeners();
 //populateUserlist();
 //displayUI();
-initUIListeners();
+//initUIListeners();
 
 //autochat
 /*
