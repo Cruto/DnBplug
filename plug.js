@@ -270,137 +270,7 @@ function checkStrobeString()
 	if (oldState != strobeState) strobeSwap();
 }
 
-/**
- * Renders all of the Plug.bot "UI" that is visible beneath the video
- * player. 
- */
-function displayUI()
-{
-	/*
-	 * Be sure to remove any old instance of the UI, in case the user
-	 * reloads the script without refreshing the page (updating.)
-	 */
-	$('#plugbot-ui').remove();
 
-	/*
-	 * Generate the HTML code for the UI.
-	 */
-	$('#chat').prepend('<div id="plugbot-ui"></div>');
-	$('#plugbot-ui').append(
-			'<p id="plugbot-btn-woot" style="color:#F88017">auto-woot</p>'
-		+ 	'<p id="plugbot-btn-queue" style="color:#F88017">auto-queue</p>'
-		+ 	'<p id="plugbot-btn-hidevideo" style="color:#F88017">hide video</p>'
-//		+ 	'<p id="plugbot-btn-userlist" style="color:#ED1C24">userlist</p>'
-		+ 	'<p id="plugbot-btn-facebook" style="color:#ED1C24"><a style="color: #F88017" href="http://www.facebook.com/groups/349429268437488/" target="_blank">facebook</a></p>'
-		+ 	'<p id="plugbot-btn-youtube" style="color:#ED1C24"><a style="color: #F88017" href="http://www.youtube.com/user/LedgeSounds/videos" target="_blank">ledges youtube</a></p>'
-		+ 	'<h2 id="plugbot-btn-minecraft" style="color:#F88017"> <a style="color:#3FFF00"> Minecraft Server </a> </br> Server Status: <a style="color:#3FFF00"> Online </a> </br> Server Ip: <a style="color:#3FFF00"> play.punkcraft.org</a></h2>'
-    );
-}
-
-
-/**
- * Prompt the user to provide a new custom username FX. 
- */
-function promptCustomUsername() {
-	var check = prompt("Format:  username:color\n(For color codes, Google 'Hexadecimal color chart')");
-	
-	customUsernames.push(check);
-	
-	$('#space').after('<span id="' + check + '" onclick="removeCustomUsername(\'' + check + '\');$(this).next().remove();$(this).remove();" style="cursor:pointer;color:#' + check.split(":")[1] + '">- ' + check.split(":")[0] 
-		+ '</span><br />');
-		
-	checkCustomUsernames();
-}
-
-
-/**
- * Remove an existing entry in the custom username FX. 
- */
-function removeCustomUsername(data) {
-	customUsernames.splice(data, 1);
-}
-
-
-/**
- * For every button on the Plug.bot UI, we have listeners backing them
- * that are built to intercept the user's clicking each button.  Based 
- * on the button that they clicked, we can execute some logic that will
- * in some way affect their experience. 
- */
-function initUIListeners()
-{	
-/*	$("#plugbot-btn-userlist").on("click", function() {
-		userList = !userList;
-		$(this).css("color", userList ? "#3FFF00" : "#ED1C24");
-		$("#plugbot-userlist").css("visibility", userList ? ("visible") : ("hidden"));
-		if (!userList) {
-			$("#plugbot-userlist").empty();
-		} else {
-			populateUserlist();
-		}
-	});
-*/
-	$("#plugbot-btn-woot").on("click", function() {
-		autowoot = !autowoot;
-		$(this).css("color", autowoot ? "#3FFF00" : "#ED1C24");
-		if (autowoot)
-			$("#button-vote-positive").click();
-	});
-
-	$("#plugbot-btn-hidevideo").on("click", function() {
-		hideVideo = !hideVideo;
-		$(this).css("color", hideVideo ? "#3FFF00" : "#ED1C24");
-		$("#yt-frame").animate({"height": (hideVideo ? "0px" : "271px")}, {duration: "fast"});
-		$("#playback .frame-background").animate({"opacity": (hideVideo ? "0" : "0.91")}, {duration: "medium"});
-	});
-
-	$("#plugbot-btn-queue").on("click", function() {
-		autoqueue = !autoqueue;
-		$(this).css("color", autoqueue ? "#3FFF00" : "#ED1C24");
-		$("#button-dj-waitlist-" + (autoqueue ? "join" : "leave")).click();
-	});
-}
-
-/**
- * Called whenever a new DJ begins playing in the room.
- *  
- * @param {Object} obj
- * 				This contains the user (current DJ)'s data.
- */
-function djAdvanced(obj) 
-{
-	/*
-	 * If they want the video to be hidden, be sure to re-hide it.
-	 */
-	if (hideVideo)
-	{
-		$("#yt-frame").css("height", "0px");
-		$("#playback .frame-background").css("opacity", "0.0");
-	}
-	
-	/*
-	 * If auto-woot is enabled, WOOT! the song.
-	 */
-	if (autowoot) 
-		$("#button-vote-positive").click();
-
-	/*
-	 * If auto-queueing has been enabled, and they have just recently
-	 * left the waitlist, join them back.
-	 */
-	if ($("#button-dj-waitlist-join").css("display") === "block" && autoqueue)
-		$("#button-dj-waitlist-join").click();
-
-	// TODO: DJ battle-related
-	points = 0;
-	highScore = 0;
-	
-	/*
-	 * If the userlist is enabled, re-populate it.
-	 */
-	if (userList)
-		populateUserlist();
-}
 
 /**
  * Generates every user in the room and their current vote as 
@@ -466,3 +336,69 @@ function populateUserlist()
 }
 
 
+/**
+ * Appends another user's username to the userlist.
+ *  
+ * @param {Object} username
+ * 				The username of this user.
+ * @param {Object} vote
+ * 				Their current 'vote', which may be:
+ * 					-1 	: Meh
+ *					0	: 'undecided' (hasn't voted yet)
+ * 					1	: WOOT!
+ */
+
+
+
+///////////////////////////////////////////////////////////
+////////// EVERYTHING FROM HERE ON OUT IS INIT ////////////
+///////////////////////////////////////////////////////////
+
+/*
+ * Clear the old code so we can properly update everything.
+ */
+$('#plugbot-css').remove();
+$('#plugbot-js').remove();
+
+/*
+ * Write the CSS rules that are used for components of the 
+ * Plug.bot UI.
+ */
+$('body').prepend('<style type="text/css" id="plugbot-css">' 
+	+ '#plugbot-ui { position: absolute; margin-left: 349px; }'
+	+ '#plugbot-ui p { background-color: #0b0b0b; height: 25px; width: 98px; padding: 8px 0 0 12px; cursor: pointer; font-variant: small-caps; font-size: 14px; margin: 0; }'
+	+ '#plugbot-ui h2 { background-color: #0b0b0b; height: 71px; width: 164px; padding: 8px 0 0 12px; color: #fff; font-variant: small-caps; font-size: 13px; margin: 0; }'
+//    + '#plugbot-userlist { border: 6px solid rgba(10, 10, 10, 0.8); border-left: 0 !important; background-color: #000000; padding: 8px 0px 20px 0px; width: 12%; }'
+//    + '#plugbot-userlist p { margin: 0; padding-top: 2px; text-indent: 24px; font-size: 10px; }'
+//    + '#plugbot-userlist p:first-child { padding-top: 0px !important; }'
+    + '#plugbot-queuespot { color: #42A5DC; text-align: left; font-size: 15px; margin-left: 8px }');
+
+/*
+ * Hit the woot button, since auto-woot is enabled by default.
+ */
+$("#button-vote-positive").click();
+
+/*
+ * Call all init-related functions to start the software up.
+ */
+initAPIListeners();
+populateUserlist();
+displayUI();
+initUIListeners();
+
+//autochat
+/*
+function isBoris() { return API.getSelf().username == "d(-_-)b Tom"; }
+
+if (isBoris())
+{
+    window.setInterval(function() {
+    API.sendChat("Check out our Room's Custom Background Script @ http://userscripts.org/scripts/show/140077 and Facebook Group @ http://tinyurl.com/c7dbewy :) ");
+    }, (1000 * 60 * 60));
+}
+*/
+
+//elements removal
+ setTimeout(function(){	
+ RoomUser.audience.roomElements = []; RoomUser.redraw();
+ },2000);
