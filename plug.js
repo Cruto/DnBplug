@@ -38,7 +38,7 @@ addGlobalStyle('#room-wheel {background-image: max-height:0px;max-width:0px;}');
 //
 //addGlobalStyle('#user-fans {background-image: url("");maxheight:25px;max-width:25px;}');
 //
-addGlobalStyle('html{background: url("http://cloud.github.com/downloads/Punkred/DnBplug/roombackground.png") no-repeat scroll center top #000000;');
+addGlobalStyle('html{background: url("http://image-upload.de/image/2rhlyf/86c3dcaa92.jpg") no-repeat scroll center top #000000;');
 //
 //addGlobalStyle('#button-dj-play.button-dj {background-image: url("")!important;}');
 //
@@ -60,7 +60,7 @@ addGlobalStyle('html{background: url("http://cloud.github.com/downloads/Punkred/
 //THE WORD REPLACEMENT CODE BELOW IS NOT MINE, IT BELONGS TO JOE SIMMONS
 
 
-var words = {
+/*var words = {
 // Syntax: 'Search word' : 'Replace word',
 "Points" : "Points",
 "Now Playing" : "Now Playing",
@@ -76,18 +76,18 @@ return this.replace(/([\[\]\^\&\$\.\(\)\?\/\\\+\{\}\|])/g, "\\$1");
 
 function isOkTag(tag) {
 return (",pre,blockquote,code,input,button,textarea".indexOf(","+tag) == -1);
-}
+}*/
 
-var regexs=new Array(),
-	replacements=new Array();
-for(var word in words) {
-if(word != "") {
-regexs.push(new RegExp("\\b"+word.prepareRegex().replace(/\*/g,'[^ ]*')+"\\b", 'gi'));
-replacements.push(words[word]);
-}
-}
+//var regexs=new Array(),
+//	replacements=new Array();
+//for(var word in words) {
+//if(word != "") {
+//regexs.push(new RegExp("\\b"+word.prepareRegex().replace(/\*/g,'[^ ]*')+"\\b", 'gi'));
+//replacements.push(words[word]);
+//}
+//}
 
-var texts = document.evaluate(".//text()[normalize-space(.)!='']",document.body,null,6,null), text="";
+/*var texts = document.evaluate(".//text()[normalize-space(.)!='']",document.body,null,6,null), text="";
 for(var i=0,l=texts.snapshotLength; (this_text=texts.snapshotItem(i)); i++) {
 	if(isOkTag(this_text.parentNode.tagName.toLowerCase()) && (text=this_text.textContent)) {
 	for(var x=0,l=regexs.length; x<l; x++) {
@@ -95,7 +95,7 @@ for(var i=0,l=texts.snapshotLength; (this_text=texts.snapshotItem(i)); i++) {
 	this_text.textContent = text;
 	}
 	}
-}
+}*/
 
 //PLUGBOT
 
@@ -138,37 +138,37 @@ for(var i=0,l=texts.snapshotLength; (this_text=texts.snapshotItem(i)); i++) {
 /**
  * Whether the user has currently enabled auto-woot. 
  */
-var autowoot = false;
+//var autowoot = false;
 /**
  * Whether the user has currently enabled auto-queueing. 
  */
-var autoqueue = false;
+//var autoqueue = false;
 /**
  * Whether or not the user has enabled hiding this video. 
  */
-var hideVideo = false;
+//var hideVideo = false;
 /**
  * Whether or not the user has enabled the userlist. 
  */
-var userList = false;
+//var userList = false;
 /**
  * Strings that trigger strobe mode
  */
-var strobeOn = /on/;
-var strobeOff = /off/;
+//var strobeOn = /on/;
+//var strobeOff = /off/;
 /**
  * Strobe status
  */
-var strobeState = false;
+//var strobeState = false;
 /**
  * Whenever a user chooses to apply custom username FX to a
  * user, their username and chosen colour and saved here. 
  */
-var customUsernames = new Array();
+//var customUsernames = new Array();
 
 // TODO:  DJ battle-related.
-var points = 0;
-var highScore = 0;
+//var points = 0;
+//var highScore = 0;
 
 /**
  * Initialise all of the Plug.dj API listeners which we use
